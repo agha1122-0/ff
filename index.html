@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyVoyage | Book Flights Worldwide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 53, 128, 0.8), rgba(0, 53, 128, 0.8)), 
+                        url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 53, 128, 0.9);
+            padding: 20px 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10%;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #f5a623;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin-top: 60px;
+        }
+        
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .search-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .search-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: #e0e0e0;
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+            margin-right: 5px;
+        }
+        
+        .tab.active {
+            background: #003580;
+            color: white;
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-group input, .form-group select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .search-btn {
+            grid-column: 1 / -1;
+            background: #f5a623;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            background: #e69500;
+        }
+        
+        .destinations {
+            padding: 80px 10%;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #003580;
+        }
+        
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .destination-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-content {
+            padding: 20px;
+            background: white;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 10px;
+            color: #003580;
+        }
+        
+        .card-content p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .card-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #f5a623;
+        }
+        
+        .contact-section {
+            background: linear-gradient(rgba(0, 53, 128, 0.9), rgba(0, 53, 128, 0.9)), 
+                        url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 10%;
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-btn {
+            display: inline-block;
+            background: #f5a623;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-btn:hover {
+            background: #e69500;
+            transform: translateY(-3px);
+        }
+        
+        footer {
+            background: #002050;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+            }
+            
+            .nav-links a {
+                margin: 0 10px;
+            }
+            
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">SkyVoyage</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Flights</a>
+            <a href="#">Destinations</a>
+            <a href="#">Deals</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Discover the World with SkyVoyage</h1>
+            <p>Book your next adventure with our exclusive flight deals to destinations worldwide</p>
+        </div>
+        
+        <div class="search-container">
+            <div class="search-tabs">
+                <div class="tab active">Round Trip</div>
+                <div class="tab">One Way</div>
+                <div class="tab">Multi-City</div>
+            </div>
+            
+            <form class="search-form">
+                <div class="form-group">
+                    <label>From</label>
+                    <input type="text" placeholder="City or Airport">
+                </div>
+                
+                <div class="form-group">
+                    <label>To</label>
+                    <input type="text" placeholder="City or Airport">
+                </div>
+                
+                <div class="form-group">
+                    <label>Departure</label>
+                    <input type="date">
+                </div>
+                
+                <div class="form-group">
+                    <label>Return</label>
+                    <input type="date">
+                </div>
+                
+                <div class="form-group">
+                    <label>Passengers</label>
+                    <select>
+                        <option>1 Adult</option>
+                        <option>2 Adults</option>
+                        <option>3 Adults</option>
+                        <option>4 Adults</option>
+                        <option>Family</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Class</label>
+                    <select>
+                        <option>Economy</option>
+                        <option>Premium Economy</option>
+                        <option>Business</option>
+                        <option>First Class</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="search-btn">Search Flights</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="destinations">
+        <h2 class="section-title">Popular Destinations</h2>
+        
+        <div class="destination-grid">
+            <div class="destination-card">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <h3>Paris, France</h3>
+                    <p>The city of love and lights awaits you</p>
+                    <div class="card-price">From $499</div>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1538970272646-f61fabb3bfdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <h3>Tokyo, Japan</h3>
+                    <p>Experience the future and tradition combined</p>
+                    <div class="card-price">From $899</div>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1518391846015-55a9cc003b25?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <h3>New York, USA</h3>
+                    <p>The city that never sleeps</p>
+                    <div class="card-price">From $299</div>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <h3>Sydney, Australia</h3>
+                    <p>Stunning beaches and vibrant culture</p>
+                    <div class="card-price">From $799</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <h2 class="section-title" style="color: white;">Ready for Your Next Adventure?</h2>
+        <p style="max-width: 700px; margin: 0 auto 30px;">Our travel experts are available 24/7 to help you plan your perfect trip. Click below to get in touch.</p>
+        <a href="#" class="contact-btn">Contact Us</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 SkyVoyage. All rights reserved.</p>
+        <p style="margin-top: 10px;">Flight booking made simple and convenient</p>
+    </footer>
+</body>
+</html>
